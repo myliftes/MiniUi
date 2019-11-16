@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Tue Dec 16 15:13:22 CST 2014-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yh.user.mapper.UserMapper">
+	
+	<resultMap id="BaseResultMap" type="com.yh.user.entity.User">
+		<result property="sid" column="SID" jdbcType="DECIMAL"/>
+		<result property="name" column="NAME" jdbcType="VARCHAR"/>
+		<result property="userName" column="USERNAME" jdbcType="VARCHAR" />
+		<result property="passWord" column="PASSWORD" jdbcType="VARCHAR" />
+		<result property="gender" column="GENDER" jdbcType="DECIMAL" />
+		<result property="age" column="AGE" jdbcType="DECIMAL" />
+		<result property="address" column="ADDRESS" jdbcType="VARCHAR" />
+		<result column="Created_By" property="createdBy" jdbcType="VARCHAR" />
+		<result column="Created_Dt" property="createdDt" jdbcType="TIMESTAMP" />
+		<result column="Updated_By" property="updatedBy" jdbcType="VARCHAR" />
+		<result column="Updated_Dt" property="updatedDt" jdbcType="TIMESTAMP"/>
+		<result column="VERSION" property="version" jdbcType="DECIMAL" />
+		
+		
+	</resultMap>
+	
+	
+	
+	<sql id="Select_Field_Clause">
+		SID,NAME,UAERNAME,PASSWORD,GENDER,AGE,ADDRESS,Created_By,Created_Dt,Updated_By,Updated_Dt,VERSION
+	</sql>
+	
+	
+	
+	
+	
+	
+	
+	<select id="fndByUserName" parameterType="java.util.Map" resultMap="BaseResultMap">
+	    SELECT 
+		<include refid="Select_Field_Clause" />
+	    from YH_ONE_USER
+		<where> 
+			<if test="sid != null" >
+	        SID = #{sid,jdbcType=DECIMAL}
+			</if>
+			<if test="userName != null" >
+	        AND USERNAME = #{userName,jdbcType=VARCHAR}
+			</if>
+		</where>
+	    	ORDER BY 
+		<if test="order != null">  
+			${order}  
+		</if>
+		<if test="order == null">  
+			SID DESC
+		</if>
+	</select>
+
+	
+   
+</mapper>
